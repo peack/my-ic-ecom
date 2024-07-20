@@ -10,6 +10,8 @@ dotenv.config({
 })
 
 import express from 'express'
+import next from 'next'
+import nextBuild from 'next/dist/build'
 import payload from 'payload'
 
 import { seed } from './payload/seed'
@@ -19,7 +21,7 @@ const PORT = process.env.PORT || 3000
 
 // Redirect root to the admin panel
 app.get('/', (_, res) => {
-  res.redirect('/admin')
+  res.redirect('/shop')
 })
 
 const start = async (): Promise<void> => {
@@ -36,8 +38,32 @@ const start = async (): Promise<void> => {
     process.exit()
   }
 
-  app.listen(PORT, async () => {
-    payload.logger.info(`App URL: ${process.env.PAYLOAD_PUBLIC_SERVER_URL}`)
+  if (process.env.NEXT_BUILD) {
+    app.listen(PORT, async () => {
+      payload.logger.info(`Next.js is now building...`)
+      // @ts-expect-error
+      await nextBuild(path.join(__dirname, '../'))
+      process.exit()
+    })
+
+    return
+  }
+
+  const nextApp = next({
+    dev: process.env.NODE_ENV !== 'production',
+    port: Number(PORT),
+  })
+
+  const nextHandler = nextApp.getRequestHandler()
+
+  app.use((req, res) => nextHandler(req, res))
+
+  nextApp.prepare().then(() => {
+    payload.logger.info('Starting Next.js...')
+
+    app.listen(PORT, async () => {
+      payload.logger.info(`Next.js App URL: ${process.env.PAYLOAD_PUBLIC_SERVER_URL}`)
+    })
   })
 }
 
