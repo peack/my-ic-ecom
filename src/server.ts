@@ -1,3 +1,4 @@
+/* eslint-disable import/default */
 import dotenv from 'dotenv'
 import path from 'path'
 
