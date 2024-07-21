@@ -1,4 +1,3 @@
-/* eslint-disable import/default */
 import dotenv from 'dotenv'
 import path from 'path'
 
@@ -12,6 +11,7 @@ dotenv.config({
 
 import express from 'express'
 import next from 'next'
+// eslint-disable-next-line import/default
 import nextBuild from 'next/dist/build'
 import payload from 'payload'
 
