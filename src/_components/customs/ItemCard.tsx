@@ -12,13 +12,13 @@ const ItemCard:React.FC<ItemCardProps> = (({ slug , product}) => {
         <Card className="w-[300px]" key={slug}>
             <CardHeader className="flex items-center space-x-4  p-4">
             <Image
-             src={product.meta?.image?.url ?? ""}
+             src={ product.meta?.image?.url ?? "/Image_NA.png"}
              alt="image "
              width={250}
              height={200}
              className="rounded-s-sm border "
              />
-             <span>{product.title}</span>
+             <span className="font-bold">{product.title}</span>
             </CardHeader>
             <CardContent>
             <p>{product.meta?.description }</p>

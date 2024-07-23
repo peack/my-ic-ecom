@@ -3,7 +3,7 @@
 import { useProducts } from "@/_hooks/useProducts";
 import ItemCard from "./ItemCard";
 
-const  ProductList: React.FC = () => {
+const  ProducDetails: React.FC = () => {
   const { products, loading, error } = useProducts();
 
     return (
