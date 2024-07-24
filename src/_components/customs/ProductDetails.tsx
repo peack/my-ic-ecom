@@ -1,23 +1,25 @@
-'use client'
 
-import { useProducts } from "@/_hooks/useProducts";
-import ItemCard from "./ItemCard";
+import { Product } from "@/payload/payload-types";
+import Image from "next/image"
 
-const  ProducDetails: React.FC = () => {
-  const { products, loading, error } = useProducts();
+interface ProductDetailsProps {
+    product: Product
+}
 
+const ProductDetails: React.FC<ProductDetailsProps> = ({product}) => {
     return (
         <>
-            { loading ? <p>Loading...</p> : error ? <p>Error: {error}</p> :
-                <div className="flex flex-wrap justify-center md:justify-start">
-                {products.map((product) => (
-                        console.log(product),                          
-                          <ItemCard product={product} slug={product.slug}/>
-                ))}
+            <div className="flex">
+                <div className="">
+                    <Image src={product.meta?.image?.url ?? "/Image_NA.png"} alt="image" width={700} height={500}  />
                 </div>
-            }
-    </>
+                <div className="">
+                    <span className="font-bold text-3xl">{product.title}</span>
+                    {console.log(product)}
+                </div>
+            </div>
+        </>
     )
 }
 
-export default ProductList
+export default ProductDetails
