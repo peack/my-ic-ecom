@@ -26,10 +26,6 @@ export default function Page({ params }: { params: { slug: string } }) {
 
     return (
         <>
-        <div className="">
-            <span>Product</span>
-        </div>
-
             {product ? <ProductDetails product={product} />: <>niet</>} 
         </>
       );
