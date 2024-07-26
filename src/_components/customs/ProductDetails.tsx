@@ -1,5 +1,5 @@
 
-import { Product } from "@/payload/payload-types";
+import { Media, Product } from "@/payload/payload-types";
 import Image from "next/image"
 
 interface ProductDetailsProps {
@@ -7,18 +7,19 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({product}) => {
+    const productMedia = product.meta?.image as Media || null;
     return (
         <>
             <div className="flex">
                 <div className="flex shrink-0 justify-center">
-                    <Image src={product.meta?.image?.url ?? "/Image_NA.png"} 
+                    <Image src={productMedia.url ?? "/Image_NA.png"} 
                     width={700} height={500}  
                     sizes="80vw"
                     style={{
                       width: '80%',
                       height: 'auto',
                     }}
-                     alt={product.meta.image?.alt ?? `Image of ${product.title}`}  />
+                     alt={productMedia.alt ?? `Image of ${product.title}`}  />
                 </div>
             </div>
                 <div className="flex">
