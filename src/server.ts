@@ -33,6 +33,15 @@ const start = async (): Promise<void> => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
     },
   })
+  const router = express.Router()
+  app.use(payload.authenticate)
+
+  app.get('/', (req, res) => {
+    if ((req as any).user) {
+      return res.send(`Authenticated successfully as ${req as any}.`)
+    }
+    return res.send('Not authenticated')
+  })
 
   if (process.env.PAYLOAD_SEED === 'true') {
     await seed(payload)

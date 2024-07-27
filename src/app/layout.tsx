@@ -1,3 +1,4 @@
+import { Providers } from '@/_providers'
 import './globals.css'
 import Header from '@/_components/customs/Header'
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -7,6 +8,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html>
       <body>
+        <Providers>
         <div className="min-h-screen bg-gray-100">
           <Header slug="Home" navLinks={navLinks} />
           <main>
@@ -21,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </footer>
         </div>
+        </Providers>
       </body>
     </html>
   )
