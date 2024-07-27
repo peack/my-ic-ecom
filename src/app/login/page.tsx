@@ -2,7 +2,6 @@ import React from 'react'
 import { Metadata } from 'next'
 
 import { getMeUser } from '@/_utilities/getMeUser'
-import { RenderParams } from '@/_components/customs/RenderParams/Index'
 import MyLogin from './LoginForm'
 
 export default async function Login() {
