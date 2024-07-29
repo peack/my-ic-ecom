@@ -1,8 +1,15 @@
 'use client'
 
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import {
   Form,
   FormControl,
@@ -10,21 +17,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { RegisterOptions, useForm, UseFormRegisterReturn } from 'react-hook-form'
 import * as z from 'zod'
 
-
 const formSchema = z.object({
   email: z.string().email({
-    message: "Please enter a valid email address.",
+    message: 'Please enter a valid email address.',
   }),
   password: z.string().min(8, {
-    message: "Password must be at least 8 characters long.",
+    message: 'Password must be at least 8 characters long.',
   }),
 })
 
@@ -35,14 +41,14 @@ export default function MyLogin() {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   })
 
   async function onSubmit(values) {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/login`,  {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
@@ -60,7 +66,7 @@ export default function MyLogin() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center h-100vh bg-gray-100">
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Login</CardTitle>
@@ -76,9 +82,16 @@ export default function MyLogin() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input register={function <TFieldName extends string = string>(name: TFieldName, options?: RegisterOptions<any, TFieldName>): UseFormRegisterReturn<TFieldName> {
-                        throw new Error('Function not implemented.')
-                      } } placeholder="Enter your email" {...field} />
+                      <Input
+                        register={function <TFieldName extends string = string>(
+                          name: TFieldName,
+                          options?: RegisterOptions<any, TFieldName>,
+                        ): UseFormRegisterReturn<TFieldName> {
+                          throw new Error('Function not implemented.')
+                        }}
+                        placeholder="Enter your email"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -91,9 +104,17 @@ export default function MyLogin() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input register={function <TFieldName extends string = string>(name: TFieldName, options?: RegisterOptions<any, TFieldName>): UseFormRegisterReturn<TFieldName> {
-                        throw new Error('Function not implemented.')
-                      } } type="password" placeholder="Enter your password" {...field} />
+                      <Input
+                        register={function <TFieldName extends string = string>(
+                          name: TFieldName,
+                          options?: RegisterOptions<any, TFieldName>,
+                        ): UseFormRegisterReturn<TFieldName> {
+                          throw new Error('Function not implemented.')
+                        }}
+                        type="password"
+                        placeholder="Enter your password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -104,13 +125,18 @@ export default function MyLogin() {
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
-              <Button type="submit" className="w-full">Login</Button>
+              <Button type="submit" className="w-full">
+                Login
+              </Button>
             </form>
           </Form>
         </CardContent>
         <CardFooter className="flex justify-center">
           <p className="text-sm text-gray-600">
-            Don't have an account? <a href="/signup" className="text-blue-600 hover:underline">Sign up</a>
+            Don't have an account?{' '}
+            <a href="/signup" className="text-blue-600 hover:underline">
+              Sign up
+            </a>
           </p>
         </CardFooter>
       </Card>

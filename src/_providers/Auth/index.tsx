@@ -3,7 +3,6 @@
 import { User } from '@/payload/payload-types'
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
-
 // eslint-disable-next-line no-unused-vars
 type ResetPassword = (args: {
   password: string
@@ -68,8 +67,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = useCallback<Login>(async args => {
     try {
-        console.log('login', args.email)
-        console.debug('login', args)
+      console.log('login', args.email)
+      console.debug('login', args)
       const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/login`, {
         method: 'POST',
         credentials: 'include',
@@ -92,7 +91,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       throw new Error('Invalid login')
     } catch (e) {
-        console.log(e)
+      console.log(e)
       throw new Error('An error occurred while attempting to login.')
     }
   }, [])
@@ -120,6 +119,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     const fetchMe = async () => {
+      console.log('fetching me')
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
           method: 'GET',

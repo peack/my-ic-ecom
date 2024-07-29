@@ -7,9 +7,5 @@ import { AuthProvider } from '../_providers/Auth'
 export const Providers: React.FC<{
   children: React.ReactNode
 }> = ({ children }) => {
-  return (
-      <AuthProvider>
-        {children}
-      </AuthProvider>
-  )
+  return <AuthProvider>{children}</AuthProvider>
 }

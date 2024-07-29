@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 
 import {
@@ -11,6 +12,7 @@ import {
   navigationMenuTriggerStyle,
 } from '../ui/navigation-menu'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/_providers/Auth'
 
 interface HeaderProps {
   slug: string
@@ -18,6 +20,12 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ slug, navLinks }) => {
+  const { user, logout } = useAuth()
+
+  useEffect(() => {
+    console.log('User changed:', user)
+  }, [user])
+
   return (
     <header className="bg-white shadow">
       <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 ">
@@ -42,11 +50,17 @@ const Header: React.FC<HeaderProps> = ({ slug, navLinks }) => {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem key={'user'}>
-                <NavigationMenuTrigger> User</NavigationMenuTrigger>
+                <NavigationMenuTrigger>
+                  {user ? user.name ?? user.email : 'Login'}
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                    <ListItem title="Profile" href="/login" />
-                    <ListItem title="Logout" href="/logout" />
+                  <ul className="grid gap-2  p-6 md:w-[120px] ]">
+                    <ListItem
+                      title={user ? 'Profile' : 'LogIn'}
+                      href={user ? '/profile' : '/login'}
+                    />
+                    {user?.roles?.includes('admin') && <ListItem title="Dash" href="/admin" />}
+                    {user && <ListItem title="Logout" href="/logout" />}
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
