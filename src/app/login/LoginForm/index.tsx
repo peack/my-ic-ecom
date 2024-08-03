@@ -1,5 +1,6 @@
 'use client'
 
+import { useAuth } from '@/_providers/Auth'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import {
@@ -19,8 +20,10 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { User } from '@/payload/payload-types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
+import { userAgent } from 'next/server'
 import { useState } from 'react'
 import { RegisterOptions, useForm, UseFormRegisterReturn } from 'react-hook-form'
 import * as z from 'zod'
@@ -37,6 +40,7 @@ const formSchema = z.object({
 export default function MyLogin() {
   const router = useRouter()
   const [error, setError] = useState('')
+  const { setUser } = useAuth()
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -55,6 +59,13 @@ export default function MyLogin() {
       })
 
       if (response.ok) {
+        console.log(`Login successful. response json: ${response}`)
+        const data = await response.json().then(data => {
+          const user: User = data.user
+          console.log(user)
+          setUser(user)
+        })
+
         router.push('/home') // Redirect to dashboard on successful login
       } else {
         const data = await response.json()
