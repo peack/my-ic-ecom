@@ -59,10 +59,8 @@ export default function MyLogin() {
       })
 
       if (response.ok) {
-        console.log(`Login successful. response json: ${response}`)
-        const data = await response.json().then(data => {
+        await response.json().then(data => {
           const user: User = data.user
-          console.log(user)
           setUser(user)
         })
 

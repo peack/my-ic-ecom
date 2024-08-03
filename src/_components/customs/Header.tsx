@@ -23,7 +23,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ slug, navLinks }) => {
   const { user, logout } = useAuth()
 
-  const [loggedInUser, setLoggedInUser] = useState<User | undefined>(user)
+  // const [loggedInUser, setLoggedInUser] = useState<User | undefined>(user)
 
   return (
     <header className="bg-white shadow">
@@ -46,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ slug, navLinks }) => {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="flex items-center"></div>
-          <UserMenu user={user} loggedInUser={loggedInUser} />
+          <UserMenu user={user} />
         </div>
       </div>
     </header>

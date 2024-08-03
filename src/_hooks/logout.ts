@@ -15,10 +15,8 @@ export const useLogout = () => {
 
       if (!response.ok) throw new Error(data.message || 'Failed to logout')
 
-      console.log('Logged out successfully', data)
       return true
     } catch (err) {
-      console.error('Logout error:', err)
       setError('Failed to logout. Please try again.')
       return false
     } finally {

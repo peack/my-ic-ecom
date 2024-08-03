@@ -6,13 +6,14 @@ import {
   NavigationMenuTrigger,
 } from '@/_components/ui/navigation-menu'
 import { ListItem } from './ListItem'
+import { useEffect } from 'react'
 
-export function UserMenu({ user, loggedInUser }) {
+export function UserMenu({ user }) {
   return (
     <>
       <NavigationMenu>
         <NavigationMenuList>
-          <NavigationMenuItem key={'user'}>
+          <NavigationMenuItem key={user?.name}>
             <NavigationMenuTrigger>
               {user ? user?.name ?? user.email : 'Login'}
             </NavigationMenuTrigger>
