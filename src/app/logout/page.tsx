@@ -36,7 +36,7 @@ export default function Logout() {
     }
 
     performLogout()
-  }, [])
+  }, [user])
 
   return <Alert variant={message.isError ? 'destructive' : 'default'}>{message.description}</Alert>
 }
