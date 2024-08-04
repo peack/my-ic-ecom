@@ -90,16 +90,7 @@ export default function MyLogin() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input
-                        register={function <TFieldName extends string = string>(
-                          name: TFieldName,
-                          options?: RegisterOptions<any, TFieldName>,
-                        ): UseFormRegisterReturn<TFieldName> {
-                          throw new Error('Function not implemented.')
-                        }}
-                        placeholder="Enter your email"
-                        {...field}
-                      />
+                      <Input type="email" placeholder="Enter your email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -112,17 +103,7 @@ export default function MyLogin() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input
-                        register={function <TFieldName extends string = string>(
-                          name: TFieldName,
-                          options?: RegisterOptions<any, TFieldName>,
-                        ): UseFormRegisterReturn<TFieldName> {
-                          throw new Error('Function not implemented.')
-                        }}
-                        type="password"
-                        placeholder="Enter your password"
-                        {...field}
-                      />
+                      <Input type="password" placeholder="Enter your password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
