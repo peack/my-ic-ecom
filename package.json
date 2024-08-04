@@ -41,6 +41,7 @@
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
+    "embla-carousel-react": "^8.1.8",
     "escape-html": "^1.0.3",
     "express": "^4.19.2",
     "lucide-react": "^0.412.0",
