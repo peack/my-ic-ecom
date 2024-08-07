@@ -4,7 +4,6 @@ import { User } from '@/payload/payload-types'
 import { useRouter } from 'next/navigation'
 import React, { Suspense, useEffect, useState } from 'react'
 import ProfileHeader from './ProfileHeader'
-import ProfilePasswordForm from '@/_components/customs/Profile/ProfilePasswordForm'
 import { onUpdatePassword } from './utils'
 import UserFavorites from './UserFavorites'
 
@@ -51,7 +50,6 @@ export default function Profile() {
   return (
     <>
       <ProfileHeader user={user} />
-      <ProfilePasswordForm user={user} onUpdatePassword={onUpdatePassword} />
       <UserFavorites id={user.id} />
     </>
   )

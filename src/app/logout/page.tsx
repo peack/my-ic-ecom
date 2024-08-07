@@ -22,17 +22,22 @@ export default function Logout() {
 
   useEffect(() => {
     const performLogout = async () => {
-      if (!user) {
-        setMessage(message => {
-          return { description: 'You are logged out', isError: true }
+      await logout()
+        .then(() => {
+          if (!user) {
+            setMessage(message => {
+              router.push('/')
+              return { description: 'You are logged out', isError: true }
+            })
+          }
+          router.refresh()
         })
-        return
-      }
-      await logout().catch(err => {
-        setMessage(message => {
-          return { description: `Error: ${err.message}`, isError: true }
+        .catch(err => {
+          setMessage(message => {
+            router.push('/')
+            return { description: `Error: ${err.message}`, isError: true }
+          })
         })
-      })
     }
 
     performLogout()

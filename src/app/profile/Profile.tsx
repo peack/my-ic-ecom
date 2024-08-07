@@ -2,22 +2,16 @@
 
 import { User } from '@/payload/payload-types'
 import { useRouter } from 'next/navigation'
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { Suspense } from 'react'
 import ProfileHeader from './ProfileHeader'
-import ProfilePasswordForm from '@/_components/customs/Profile/ProfilePasswordForm'
-import { onUpdatePassword } from './utils'
 import UserFavorites from './UserFavorites'
 interface profileProps {
   user: User
 }
 
 export default async function Profile() {
-  // const [user, setUser] = useState<User | null>(null)
   const router = useRouter()
 
-  // useEffect(() => {
-  //   fetchMe()
-  // }, [])
   async function fetchMe() {
     let myUser: User | null = null
     try {
@@ -56,7 +50,6 @@ export default async function Profile() {
         <>
           <Suspense fallback={<div>Loading...</div>}>
             <ProfileHeader user={user} />
-            <ProfilePasswordForm user={user} onUpdatePassword={onUpdatePassword} />
             <UserFavorites id={user.id} />
           </Suspense>
         </>
