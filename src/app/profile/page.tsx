@@ -50,7 +50,9 @@ export default function Profile() {
   return (
     <>
       <ProfileHeader user={user} />
-      <UserFavorites id={user.id} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <UserFavorites id={user.id} />
+      </Suspense>
     </>
   )
 }

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useLogout } from '@/_hooks/logout'
 import { Alert } from '@/components/ui/alert'
 import { useAuth } from '@/_providers/Auth'
 
@@ -11,7 +10,6 @@ interface logoutMessageProps {
   isError: boolean
 }
 export default function Logout() {
-  // const { logout, isLoading, error } = useLogout()
   const router = useRouter()
   const { setUser, logout, user } = useAuth()
 

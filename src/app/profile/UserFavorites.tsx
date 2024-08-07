@@ -1,5 +1,15 @@
 import { useState, useEffect } from 'react'
-import { Product } from '@/payload/payload-types'
+import { Media, Product } from '@/payload/payload-types'
+import { Card, CardContent } from '@/_components/ui/card'
+import Image from 'next/image'
+import Link from 'next/link'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from '@/components/ui/carousel'
 
 interface UserFavoritesProps {
   id: string
@@ -43,16 +53,55 @@ export default function UserFavorites({ id }: UserFavoritesProps) {
     <>
       {userFavorites && userFavorites.length > 0 ? (
         <div>
-          <h1>User Favorites</h1>
-          <ul>
-            {userFavorites.map(favorite => (
-              <li key={favorite.id}>{favorite.title}</li>
-            ))}
-          </ul>
+          <h2 className=" text-2xl font-extrabold tracking-tight lg:text-2xl py-5">
+            User Favorites
+          </h2>
+          {userFavorites.length > 4 ? (
+            <div className="flex justify-start px-10">
+              <Carousel className="w-[300px]">
+                <CarouselContent>
+                  {userFavorites.map(favorite => {
+                    return (
+                      <CarouselItem className="basis-1/3 md:basis-1/4" key={favorite.slug}>
+                        {userFavoriteCard(favorite)}
+                      </CarouselItem>
+                    )
+                  })}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            </div>
+          ) : (
+            <div className="flex justify-start gap-1">
+              {userFavorites.map(favorite => {
+                return userFavoriteCard(favorite)
+              })}
+            </div>
+          )}
         </div>
       ) : (
         <p>{message}</p>
       )}
     </>
+  )
+}
+
+function userFavoriteCard(favorite) {
+  const favoriteMedia: Media = (favorite.meta?.image as Media) || null
+  return (
+    <Card key={favorite.id} className="w-[80px] p-1">
+      <CardContent className="p-0">
+        <Link href={`/products/${favorite.slug}`}>
+          <Image
+            src={favoriteMedia.url ?? '/Image_NA.png'}
+            alt="image "
+            width={80}
+            height={80}
+            className="rounded-md border "
+          />
+        </Link>
+      </CardContent>
+    </Card>
   )
 }

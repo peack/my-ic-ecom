@@ -1,5 +1,3 @@
-// 'use client'
-
 import { User } from '@/payload/payload-types'
 import { useRouter } from 'next/navigation'
 import React, { Suspense } from 'react'
@@ -48,10 +46,14 @@ export default async function Profile() {
         </>
       ) : (
         <>
-          <Suspense fallback={<div>Loading...</div>}>
-            <ProfileHeader user={user} />
-            <UserFavorites id={user.id} />
-          </Suspense>
+          <div className="container">
+            <Suspense fallback={<div>Loading...</div>}>
+              <ProfileHeader user={user} />
+            </Suspense>
+            <Suspense fallback={<div>Loading...</div>}>
+              <UserFavorites id={user.id} />
+            </Suspense>
+          </div>
         </>
       )}
     </>
