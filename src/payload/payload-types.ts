@@ -434,6 +434,7 @@ export interface User {
   id: string;
   name?: string | null;
   roles?: ('admin' | 'customer')[] | null;
+  favorites?: (string | Product)[] | null;
   purchases?: (string | Product)[] | null;
   stripeCustomerID?: string | null;
   cart?: {

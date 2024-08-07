@@ -4072,6 +4072,7 @@ type User {
   id: String
   name: String
   roles: [User_roles!]
+  favorites(draft: Boolean): [Product!]
   purchases(draft: Boolean): [Product!]
   stripeCustomerID: String
   cart: User_Cart
@@ -5502,6 +5503,7 @@ type Users {
 input User_where {
   name: User_name_operator
   roles: User_roles_operator
+  favorites: User_favorites_operator
   purchases: User_purchases_operator
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
@@ -5539,6 +5541,15 @@ input User_roles_operator {
 enum User_roles_Input {
   admin
   customer
+}
+
+input User_favorites_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
 }
 
 input User_purchases_operator {
@@ -5643,6 +5654,7 @@ input User_id_operator {
 input User_where_and {
   name: User_name_operator
   roles: User_roles_operator
+  favorites: User_favorites_operator
   purchases: User_purchases_operator
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
@@ -5660,6 +5672,7 @@ input User_where_and {
 input User_where_or {
   name: User_name_operator
   roles: User_roles_operator
+  favorites: User_favorites_operator
   purchases: User_purchases_operator
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
@@ -5690,6 +5703,7 @@ type usersDocAccess {
 type UsersDocAccessFields {
   name: UsersDocAccessFields_name
   roles: UsersDocAccessFields_roles
+  favorites: UsersDocAccessFields_favorites
   purchases: UsersDocAccessFields_purchases
   stripeCustomerID: UsersDocAccessFields_stripeCustomerID
   cart: UsersDocAccessFields_cart
@@ -5743,6 +5757,29 @@ type UsersDocAccessFields_roles_Update {
 }
 
 type UsersDocAccessFields_roles_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_favorites {
+  create: UsersDocAccessFields_favorites_Create
+  read: UsersDocAccessFields_favorites_Read
+  update: UsersDocAccessFields_favorites_Update
+  delete: UsersDocAccessFields_favorites_Delete
+}
+
+type UsersDocAccessFields_favorites_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_favorites_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_favorites_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_favorites_Delete {
   permission: Boolean!
 }
 
@@ -9391,6 +9428,7 @@ type usersAccess {
 type UsersFields {
   name: UsersFields_name
   roles: UsersFields_roles
+  favorites: UsersFields_favorites
   purchases: UsersFields_purchases
   stripeCustomerID: UsersFields_stripeCustomerID
   cart: UsersFields_cart
@@ -9444,6 +9482,29 @@ type UsersFields_roles_Update {
 }
 
 type UsersFields_roles_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_favorites {
+  create: UsersFields_favorites_Create
+  read: UsersFields_favorites_Read
+  update: UsersFields_favorites_Update
+  delete: UsersFields_favorites_Delete
+}
+
+type UsersFields_favorites_Create {
+  permission: Boolean!
+}
+
+type UsersFields_favorites_Read {
+  permission: Boolean!
+}
+
+type UsersFields_favorites_Update {
+  permission: Boolean!
+}
+
+type UsersFields_favorites_Delete {
   permission: Boolean!
 }
 
@@ -11063,6 +11124,7 @@ input mutationCategoryUpdate_BreadcrumbsInput {
 input mutationUserInput {
   name: String
   roles: [User_roles_MutationInput]
+  favorites: [String]
   purchases: [String]
   stripeCustomerID: String
   cart: mutationUser_CartInput
@@ -11097,6 +11159,7 @@ input mutationUser_Cart_ItemsInput {
 input mutationUserUpdateInput {
   name: String
   roles: [UserUpdate_roles_MutationInput]
+  favorites: [String]
   purchases: [String]
   stripeCustomerID: String
   cart: mutationUserUpdate_CartInput

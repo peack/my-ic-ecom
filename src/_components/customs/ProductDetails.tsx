@@ -18,7 +18,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const productMedia = (product.meta?.image as Media) || null
   return (
     <>
-      <div className="flex">
+      <div className="flex container mx-auto">
         <div className="flex shrink-0 justify-center">
           <Image
             src={productMedia.url ?? '/Image_NA.png'}
@@ -49,7 +49,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           />
         ))}
       </div> */}
-      <div className="flex justify-center">
+      <div className="flex container justify-center">
         <Carousel>
           <CarouselContent>
             {product.relatedProducts?.map(relatedProd => {
