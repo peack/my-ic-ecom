@@ -1,5 +1,4 @@
-import ItemCard from '@/_components/customs/ItemCard'
-import ProductList from '@/_components/customs/ProductList'
+import { ProductList } from '@/_components/customs/ProductList'
 
 export default function Page() {
   return (

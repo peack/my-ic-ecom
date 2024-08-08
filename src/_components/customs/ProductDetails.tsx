@@ -39,16 +39,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       <div className="flex">
         <span>{product.meta?.description}</span>
       </div>
-
-      {/* <div className="">
-        {product.relatedProducts?.map(relatedProd => (
-          <ItemCard
-            key={typeof relatedProd === 'string' ? relatedProd : relatedProd.id}
-            product={relatedProd as Product}
-            slug={typeof relatedProd === 'string' ? relatedProd : relatedProd.slug}
-          />
-        ))}
-      </div> */}
       <div className="flex container justify-center">
         <Carousel>
           <CarouselContent>
