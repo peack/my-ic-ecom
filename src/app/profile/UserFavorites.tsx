@@ -87,7 +87,7 @@ export default function UserFavorites({ id }: UserFavoritesProps) {
   )
 }
 
-function userFavoriteCard(favorite) {
+function userFavoriteCard(favorite: Product) {
   const favoriteMedia: Media = (favorite.meta?.image as Media) || null
   return (
     <Card key={favorite.id} className="w-[80px] p-1">
