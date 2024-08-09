@@ -1,57 +1,28 @@
 'use client'
 
-import { User } from '@/payload/payload-types'
 import { useRouter } from 'next/navigation'
-import React, { Suspense, useEffect, useState } from 'react'
+import { Suspense } from 'react'
 import ProfileHeader from './ProfileHeader'
-import { onUpdatePassword } from './utils'
 import UserFavorites from './UserFavorites'
+import { useAuth } from '@/_providers/Auth'
 
 export default function Profile() {
-  const [user, setUser] = useState<User | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const { status } = useAuth()
   const router = useRouter()
 
-  useEffect(() => {
-    async function fetchMe() {
-      try {
-        const req = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-        const data = await req.json()
-        if (data.user) {
-          setUser(data.user)
-        } else {
-          router.push('/login')
-        }
-      } catch (err) {
-        console.log(err)
-        router.push('/login')
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchMe()
-  }, [router])
-
-  if (isLoading) {
+  if (status === undefined) {
     return <div>Loading ...</div>
   }
 
-  if (!user) {
-    return null // or a loading state, though this should be caught by the isLoading check
+  if (status === 'loggedOut') {
+    router.push('/login')
+    return null
   }
-
   return (
     <>
-      <ProfileHeader user={user} />
+      <ProfileHeader />
       <Suspense fallback={<div>Loading...</div>}>
-        <UserFavorites id={user.id} />
+        <UserFavorites />
       </Suspense>
     </>
   )

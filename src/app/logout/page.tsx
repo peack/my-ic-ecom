@@ -5,41 +5,50 @@ import { useRouter } from 'next/navigation'
 import { Alert } from '@/components/ui/alert'
 import { useAuth } from '@/_providers/Auth'
 
-interface logoutMessageProps {
+interface LogoutMessageProps {
   description: string
   isError: boolean
 }
-export default function Logout() {
-  const router = useRouter()
-  const { setUser, logout, user } = useAuth()
 
-  const [message, setMessage] = useState<logoutMessageProps>({
-    description: 'Loading',
+export default function LogoutPage() {
+  const router = useRouter()
+  const { logout, status } = useAuth()
+  const [message, setMessage] = useState<LogoutMessageProps>({
+    description: 'Logging out...',
     isError: false,
   })
 
   useEffect(() => {
     const performLogout = async () => {
-      await logout()
-        .then(() => {
-          if (!user) {
-            setMessage(message => {
-              router.push('/')
-              return { description: 'You are logged out', isError: true }
-            })
-          }
-          router.refresh()
+      try {
+        await logout()
+        setMessage({
+          description: 'You have been successfully logged out.',
+          isError: false,
         })
-        .catch(err => {
-          setMessage(message => {
-            router.push('/')
-            return { description: `Error: ${err.message}`, isError: true }
-          })
+        setTimeout(() => router.push('/'), 2500)
+      } catch (error) {
+        setMessage({
+          description: 'An error occurred while logging out. Please try again.',
+          isError: true,
         })
+      }
     }
 
-    performLogout()
-  }, [])
+    if (status === 'loggedIn') {
+      performLogout()
+    } else if (status === 'loggedOut') {
+      setMessage({
+        description: 'You are already logged out.',
+        isError: false,
+      })
+      setTimeout(() => router.push('/'), 2500)
+    }
+  }, [logout, router, status])
 
-  return <Alert variant={message.isError ? 'destructive' : 'default'}>{message.description}</Alert>
+  return (
+    <div className="flex justify-center items-center">
+      <Alert variant={message.isError ? 'destructive' : 'default'}>{message.description}</Alert>
+    </div>
+  )
 }

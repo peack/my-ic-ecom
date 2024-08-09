@@ -24,5 +24,5 @@ export default function Page({ params }: { params: { slug: string } }) {
     fetchData()
   }, [params.slug])
 
-  return <>{product ? <ProductDetails product={product} /> : <>niet</>}</>
+  return <>{product ? <ProductDetails product={product} /> : <>Loading</>}</>
 }

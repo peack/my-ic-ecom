@@ -23,7 +23,7 @@ import { Input } from '@/components/ui/input'
 import { User } from '@/payload/payload-types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
@@ -39,7 +39,7 @@ const formSchema = z.object({
 export default function MyLogin() {
   const router = useRouter()
   const [error, setError] = useState('')
-  const { setUser } = useAuth()
+  const { user, setUser } = useAuth()
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -48,7 +48,12 @@ export default function MyLogin() {
       password: '',
     },
   })
-
+  useEffect(() => {
+    console.log('checking User')
+    if (user) {
+      router.push('/home')
+    }
+  }, [user])
   async function onSubmit(values) {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/login`, {

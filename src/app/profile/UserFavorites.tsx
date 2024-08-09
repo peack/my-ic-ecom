@@ -10,45 +10,20 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from '@/components/ui/carousel'
+import { getMyFavorites } from '@/_hooks/useFavorites'
 
-interface UserFavoritesProps {
-  id: string
-}
-
-export default function UserFavorites({ id }: UserFavoritesProps) {
+export default function UserFavorites() {
   const [userFavorites, setUserFavorites] = useState<Product[]>([])
-  const [message, setMessage] = useState<string | null>(null)
+  const [message, setMessage] = useState<string | null>('You have no favorites')
 
   useEffect(() => {
-    async function fetchMyFavorites(userId: string) {
-      try {
-        const req = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${userId}`, {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-        if (req.ok) {
-          const data = await req.json().then(data => {
-            const myFavorites: Product[] = data.favorites
-            return myFavorites
-          })
-          if (data.length > 0) {
-            console.log(data)
-            setUserFavorites(data)
-          }
-        } else {
-          setMessage('Error fetching favorites')
-        }
-      } catch (err) {
-        console.error('Error fetching posts:', err)
-        setMessage('You have no favorites, add some now!')
-      }
+    async function fetchMyFavorites() {
+      await getMyFavorites().then(favorites =>
+        favorites ? setUserFavorites(favorites) : setUserFavorites([]),
+      )
     }
-    fetchMyFavorites(id)
+    fetchMyFavorites()
   }, [])
-
   return (
     <>
       {userFavorites && userFavorites.length > 0 ? (

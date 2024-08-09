@@ -1,18 +1,13 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Link from 'next/link'
 
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '../ui/navigation-menu'
-import { useAuth } from '@/_providers/Auth'
-import { User } from '@/payload/payload-types'
-import { ListItem } from './Header/ListItem'
 import { UserMenu } from './Header/UserMenu'
 
 interface HeaderProps {
@@ -20,11 +15,7 @@ interface HeaderProps {
   navLinks: string[]
 }
 
-const Header: React.FC<HeaderProps> = ({ slug, navLinks }) => {
-  const { user, logout } = useAuth()
-
-  // const [loggedInUser, setLoggedInUser] = useState<User | undefined>(user)
-
+const Header: React.FC<HeaderProps> = ({ navLinks }) => {
   return (
     <header className="bg-white shadow">
       <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 ">
@@ -45,8 +36,9 @@ const Header: React.FC<HeaderProps> = ({ slug, navLinks }) => {
               ))}
             </NavigationMenuList>
           </NavigationMenu>
-          <div className="flex items-center"></div>
-          <UserMenu user={user} />
+          <div className="flex items-center">
+            <UserMenu />
+          </div>
         </div>
       </div>
     </header>

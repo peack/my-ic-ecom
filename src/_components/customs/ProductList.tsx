@@ -5,20 +5,16 @@ import ItemCard from './ItemCard'
 import { getMyFavorites, toggleFavorite } from '@/_hooks/useFavorites'
 import { useEffect, useState } from 'react'
 import { Product } from '@/payload/payload-types'
-import { useAuth } from '@/_providers/Auth'
-import { LoginAlert } from './Alerts/LoginAlert'
 
 export function ProductList() {
   const { products, loading, error } = useProducts()
   const [myFavorites, setMyFavorites] = useState<string[]>([])
 
-  const status = useAuth().status
-
   useEffect(() => {
     async function fetchMyFavorites() {
-      await getMyFavorites().then(favorites =>
-        favorites ? setMyFavorites(favorites) : setMyFavorites([]),
-      )
+      await getMyFavorites().then(favorites => {
+        favorites ? setMyFavorites(favorites.map(favorite => favorite.id)) : setMyFavorites([])
+      })
     }
     fetchMyFavorites()
   }, [])
