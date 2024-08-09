@@ -4,17 +4,20 @@ import Image from 'next/image'
 import { Product, Media } from '@/payload/payload-types'
 import Link from 'next/link'
 import { StarIcon } from 'lucide-react'
+import { useAuth } from '@/_providers/Auth'
+import { LoginAlert } from './Alerts/LoginAlert'
 
 interface ItemCardProps {
   slug: string
   product: Product
   isFavorite: boolean
-  toggleFavorite?: (id: string, isFavorite: boolean) => void
+  toggleFavorite?: (product: Product, isFavorite: boolean) => void
 }
 
 const ItemCard: React.FC<ItemCardProps> = ({ slug, product, isFavorite, toggleFavorite }) => {
   const productMedia = (product.meta?.image as Media) || null
   const iconClass = isFavorite ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'
+  const status = useAuth().status
   return (
     <Card className="w-[300px]" key={slug}>
       <Link key={product.slug} href={`/products/${product.slug}`}>
@@ -33,7 +36,13 @@ const ItemCard: React.FC<ItemCardProps> = ({ slug, product, isFavorite, toggleFa
         <p>{product.meta?.description}</p>
       </CardContent>
       <CardFooter className={'flex justify-end p-4'}>
-        <StarIcon className={iconClass} onClick={() => toggleFavorite(product.id, isFavorite)} />
+        {status === 'loggedIn' ? (
+          <StarIcon className={iconClass} onClick={() => toggleFavorite(product, isFavorite)} />
+        ) : (
+          <LoginAlert>
+            <StarIcon className={iconClass} />
+          </LoginAlert>
+        )}
       </CardFooter>
     </Card>
   )

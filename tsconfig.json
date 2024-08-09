@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
+    "downlevelIteration": true,
     "target": "es5",
     "lib": [
       "dom",
@@ -24,8 +25,12 @@
       }
     ],
     "paths": {
-      "react": ["./node_modules/@types/react"],
-      "@/*": ["./src/*"]
+      "react": [
+        "./node_modules/@types/react"
+      ],
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
   "include": [

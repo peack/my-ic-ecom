@@ -2,16 +2,17 @@
 
 import { useProducts } from '@/_hooks/useProducts'
 import ItemCard from './ItemCard'
-import { getMyFavorites } from '@/_hooks/getMyFavorites'
+import { getMyFavorites, toggleFavorite } from '@/_hooks/useFavorites'
 import { useEffect, useState } from 'react'
+import { Product } from '@/payload/payload-types'
+import { useAuth } from '@/_providers/Auth'
+import { LoginAlert } from './Alerts/LoginAlert'
 
 export function ProductList() {
   const { products, loading, error } = useProducts()
   const [myFavorites, setMyFavorites] = useState<string[]>([])
 
-  function handleToggleFavorite(id: string, isFavorite: boolean) {
-    console.log(id, isFavorite)
-  }
+  const status = useAuth().status
 
   useEffect(() => {
     async function fetchMyFavorites() {
@@ -21,6 +22,17 @@ export function ProductList() {
     }
     fetchMyFavorites()
   }, [])
+
+  async function handleToggleFavorite(product: Product, isFavorite: boolean) {
+    try {
+      await toggleFavorite(product, isFavorite)
+      isFavorite
+        ? setMyFavorites(myFavorites.filter(favorite => favorite !== product.id))
+        : setMyFavorites([...myFavorites, product.id])
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <>

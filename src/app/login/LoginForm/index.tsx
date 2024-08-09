@@ -23,9 +23,8 @@ import { Input } from '@/components/ui/input'
 import { User } from '@/payload/payload-types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import { userAgent } from 'next/server'
 import { useState } from 'react'
-import { RegisterOptions, useForm, UseFormRegisterReturn } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
 const formSchema = z.object({
