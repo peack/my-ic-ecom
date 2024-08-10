@@ -71,6 +71,12 @@ const Users: CollectionConfig = {
       },
     },
     {
+      name: 'favorites',
+      type: 'relationship',
+      relationTo: 'products',
+      hasMany: true,
+    },
+    {
       name: 'purchases',
       label: 'Purchases',
       type: 'relationship',

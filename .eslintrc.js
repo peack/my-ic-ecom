@@ -1,6 +1,19 @@
 module.exports = {
   root: true,
-  extends: ['plugin:@next/next/recommended', '@payloadcms'],
+  extends: ['@payloadcms', 'plugin:@next/next/recommended'],
   ignorePatterns: ['**/payload-types.ts'],
-  plugins: ['prettier'],
+  plugins: ['prettier', 'import'],
+  rules: {
+    'import/no-default-export': 'off',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+  },
 }

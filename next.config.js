@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
 const ContentSecurityPolicy = require('./csp')
+// eslint-disable-next-line import/extensions
 const redirects = require('./redirects')
 
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
   images: {
     domains: ['localhost', process.env.NEXT_PUBLIC_SERVER_URL]

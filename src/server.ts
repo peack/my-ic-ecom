@@ -1,19 +1,29 @@
 import dotenv from 'dotenv'
-import next from 'next'
-import nextBuild from 'next/dist/build'
 import path from 'path'
+
+// This file is used to replace `server.ts` when ejecting i.e. `yarn eject`
+// See `../eject.ts` for exact details on how this file is used
+// See `./README.md#eject` for more information
 
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 })
 
 import express from 'express'
+import next from 'next'
+// eslint-disable-next-line import/default
+import nextBuild from 'next/dist/build'
 import payload from 'payload'
 
 import { seed } from './payload/seed'
 
 const app = express()
 const PORT = process.env.PORT || 3000
+
+// Redirect root to the admin panel
+app.get('/', (_, res) => {
+  res.redirect('/home')
+})
 
 const start = async (): Promise<void> => {
   await payload.init({
@@ -22,6 +32,15 @@ const start = async (): Promise<void> => {
     onInit: () => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
     },
+  })
+  const router = express.Router()
+  app.use(payload.authenticate)
+
+  app.get('/', (req, res) => {
+    if ((req as any).user) {
+      return res.send(`Authenticated successfully as ${req as any}.`)
+    }
+    return res.send('Not authenticated')
   })
 
   if (process.env.PAYLOAD_SEED === 'true') {
