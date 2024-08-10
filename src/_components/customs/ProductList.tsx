@@ -37,7 +37,10 @@ export function ProductList() {
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        <div className="flex flex-wrap justify-center md:justify-start">
+        <div
+          className="flex flex-wrap justify-center md:justify-start 
+      "
+        >
           {products.map(product => {
             return (
               <ItemCard

@@ -19,7 +19,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ slug, product, isFavorite, toggleFa
   const iconClass = isFavorite ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'
   const status = useAuth().status
   return (
-    <Card className="w-[300px]" key={slug}>
+    <Card className="w-[300px] m-1" key={slug}>
       <Link key={product.slug} href={`/products/${product.slug}`}>
         <CardHeader className="flex items-center space-x-4  p-4">
           <Image
