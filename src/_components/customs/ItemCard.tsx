@@ -19,7 +19,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ slug, product, isFavorite, toggleFa
   const iconClass = isFavorite ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'
   const status = useAuth().status
   return (
-    <Card className="w-[300px] m-1" key={slug}>
+    <Card className="  w-[160px] md:w-[300px] m-1" key={slug}>
       <Link key={product.slug} href={`/products/${product.slug}`}>
         <CardHeader className="flex items-center space-x-4  p-4">
           <Image
@@ -27,6 +27,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ slug, product, isFavorite, toggleFa
             alt="image "
             width={250}
             height={200}
+            layout="responsive"
             className="rounded-s-sm border "
           />
           <span className="font-bold">{product.title}</span>
@@ -35,7 +36,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ slug, product, isFavorite, toggleFa
       <CardContent>
         <p>{product.meta?.description}</p>
       </CardContent>
-      <CardFooter className={'flex justify-end p-4'}>
+      <CardFooter className={'flex justify-end'}>
         {status === 'loggedIn' ? (
           <StarIcon className={iconClass} onClick={() => toggleFavorite(product, isFavorite)} />
         ) : (

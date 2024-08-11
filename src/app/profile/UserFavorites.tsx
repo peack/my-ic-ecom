@@ -33,11 +33,11 @@ export default function UserFavorites() {
           </h2>
           {userFavorites.length > 4 ? (
             <div className="flex justify-start px-10">
-              <Carousel className="w-[300px]">
+              <Carousel className="w-[400px]">
                 <CarouselContent>
                   {userFavorites.map(favorite => {
                     return (
-                      <CarouselItem className="basis-1/3 md:basis-1/4" key={favorite.slug}>
+                      <CarouselItem className="basis-1/3 md:basis-1/3" key={favorite.slug}>
                         {userFavoriteCard(favorite)}
                       </CarouselItem>
                     )
@@ -65,15 +65,16 @@ export default function UserFavorites() {
 function userFavoriteCard(favorite: Product) {
   const favoriteMedia: Media = (favorite.meta?.image as Media) || null
   return (
-    <Card key={favorite.id} className="w-[80px] p-1">
-      <CardContent className="p-0">
+    <Card key={favorite.id} className="w-[100px] md:w-[120px]">
+      <CardContent className="p[-10px]">
         <Link href={`/products/${favorite.slug}`}>
           <Image
             src={favoriteMedia.url ?? '/Image_NA.png'}
             alt="image "
-            width={80}
-            height={80}
-            className="rounded-md border "
+            width={90}
+            height={70}
+            layout="responsive"
+            className="rounded-md "
           />
         </Link>
       </CardContent>

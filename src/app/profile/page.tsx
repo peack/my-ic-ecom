@@ -10,6 +10,7 @@ export default function Profile() {
   const { status } = useAuth()
   const router = useRouter()
 
+  console.log(status)
   if (status === undefined) {
     return <div>Loading ...</div>
   }
