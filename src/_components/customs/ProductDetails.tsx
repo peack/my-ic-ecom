@@ -19,22 +19,20 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const productMedia = (product.meta?.image as Media) || null
   return (
     <>
-      <span className="font-bold text-3xl">{product.title}</span>
-      <div className="flex container mx-auto py-5">
-        <div className="flex shrink-0 justify-center">
-          <Image
-            className="rounded-sm"
-            src={productMedia.url ?? '/Image_NA.png'}
-            width={500}
-            height={300}
-            sizes="70vw"
-            style={{
-              width: '80%',
-              height: 'auto',
-            }}
-            alt={productMedia.alt ?? `Image of ${product.title}`}
-          />
-        </div>
+      <h1 className="font-bold text-3xl pb-5">{product.title}</h1>
+      <div className="flex justify-center">
+        <Image
+          className="rounded-sm shadow-xl"
+          src={productMedia.url ?? '/Image_NA.png'}
+          width={500}
+          height={300}
+          sizes="60vw"
+          style={{
+            width: '60%',
+            height: 'auto',
+          }}
+          alt={productMedia.alt ?? `Image of ${product.title}`}
+        />
       </div>
       <div className="my-10">
         <h2 className="mt-10 scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight transition-colors first:mt-0">
@@ -62,6 +60,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                         }`}
                       >
                         <Image
+                          className="rounded-sm"
                           width={150}
                           height={150}
                           src={productMedia.url ?? '/Image_NA.png'}

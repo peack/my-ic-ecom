@@ -39,7 +39,7 @@ const formSchema = z.object({
 export default function MyLogin() {
   const router = useRouter()
   const [error, setError] = useState('')
-  const { user, setUser } = useAuth()
+  const { user, setUser, status, login } = useAuth()
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -48,33 +48,20 @@ export default function MyLogin() {
       password: '',
     },
   })
+
   useEffect(() => {
-    console.log('checking User')
-    if (user) {
+    console.log(status)
+    if (status === 'loggedIn') {
       router.push('/home')
     }
-  }, [user])
+  }, [user, status])
   async function onSubmit(values) {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      })
-
-      if (response.ok) {
-        await response.json().then(data => {
-          const user: User = data.user
-          setUser(user)
-        })
-
-        router.push('/home') // Redirect to dashboard on successful login
-      } else {
-        const data = await response.json()
-        setError(data.message || 'Login failed')
-      }
+      await login(values)
+      setTimeout(() => router.push('/'), 2500)
     } catch (error) {
-      setError('An error occurred. Please try again.')
+      console.log(error)
+      setError('An error occurred while logging in. Please try again.')
     }
   }
 

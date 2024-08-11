@@ -37,10 +37,8 @@ export function ProductList() {
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        <div
-          className="flex flex-wrap justify-center md:justify-start 
-      "
-        >
+        <div className="flex flex-wrap justify-center md:justify-start mx-[-10px] sm:mx-0">
+          {/* // <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 place-items-center "> */}
           {products.map(product => {
             return (
               <ItemCard
